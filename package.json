@@ -43,7 +43,10 @@
     "release": "bumpp && npm publish",
     "start": "esno src/index.ts",
     "test": "vitest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "docs:dev": "vitepress dev src --open",
+    "docs:build": "vitepress build src",
+    "docs:preview": "vitepress preview src"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.39.4",
@@ -60,7 +63,9 @@
     "typescript": "^5.0.4",
     "unbuild": "^1.2.1",
     "vite": "^4.3.9",
-    "vitest": "^0.31.3"
+    "vitepress": "1.0.0-beta.5",
+    "vitest": "^0.31.3",
+    "vue": "^3.3.4"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
