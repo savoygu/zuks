@@ -11,3 +11,4 @@ node_modules
 temp
 packages/.vitepress/cache
 packages/.vitepress/dist
+.eslintcache
