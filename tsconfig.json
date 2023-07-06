@@ -10,5 +10,14 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "skipDefaultLibCheck": true
-  }
+  },
+  "include": [
+    "packages",
+    "packages/.vitepress/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.md",
+    "**/dist"
+  ]
 }
