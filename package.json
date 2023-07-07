@@ -36,6 +36,8 @@
     "gray-matter": "^4.0.3",
     "lint-staged": "^13.2.2",
     "pnpm": "^8.6.0",
+    "postcss": "^8.4.25",
+    "postcss-nested": "^6.0.1",
     "rimraf": "^5.0.1",
     "simple-git": "^3.19.1",
     "simple-git-hooks": "^2.8.1",
