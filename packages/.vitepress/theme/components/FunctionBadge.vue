@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { VueUseFunction } from '@vueuse/metadata'
+import type { UseTimeAgoMessages } from '@vueuse/core'
 import { useTimeAgo } from '@vueuse/core'
 import { renderMarkdown } from '../utils'
 
@@ -28,7 +29,7 @@ const link = computed(() => {
   }
 })
 
-const messages = {
+const messages: UseTimeAgoMessages = {
   justNow: '刚刚',
   past: n => n.match(/\d/) ? `${n}前` : n,
   future: n => n.match(/\d/) ? `${n}后` : n,
@@ -59,11 +60,11 @@ const messages = {
 }
 
 const updated = computed(() => {
-  return props.fn.lastUpdated
-    ? `(${useTimeAgo(props.fn.lastUpdated, {
-      messages,
-    }).value})`
-    : ''
+  const lastUpdated = props.fn.lastUpdated
+  if (!lastUpdated)
+    return ''
+  const timeAgo = useTimeAgo(lastUpdated, { messages })
+  return `(${timeAgo.value})`
 })
 </script>
 

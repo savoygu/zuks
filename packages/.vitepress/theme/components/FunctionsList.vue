@@ -187,7 +187,7 @@ input {
   padding: 0;
   margin: 0;
   -webkit-print-color-adjust: exact;
-  color-adjust: exact;
+  print-color-adjust: exact;
   display: inline-block;
   vertical-align: middle;
   background-origin: border-box;
