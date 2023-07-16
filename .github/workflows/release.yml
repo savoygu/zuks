@@ -1,6 +1,7 @@
 name: Release
 
 permissions:
+  id-token: write
   contents: write
 
 on:
@@ -25,6 +26,9 @@ jobs:
           node-version: 18.x
           cache: pnpm
 
-      - run: npx changelogithub
+      - run: pnpm install
+
+      - run: npx changelogithub --no-group
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
