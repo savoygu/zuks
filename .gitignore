@@ -12,4 +12,6 @@ temp
 packages/.vitepress/cache
 packages/.vitepress/dist
 packages/.vitepress/components.d.ts
+packages/public/badge-*
+types
 .eslintcache

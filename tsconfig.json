@@ -7,18 +7,29 @@
     "esModuleInterop": true,
     "strict": true,
     "strictNullChecks": true,
+    "declaration": true,
+    "declarationDir": "./types",
+    "baseUrl": ".",
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "skipDefaultLibCheck": true
+    "skipDefaultLibCheck": true,
+    "paths": {
+      "@zuks/metadata": ["packages/metadata/index.ts"],
+      "@zuks/metadata/*": ["packages/metadata/*"],
+      "@zuks/core": ["packages/core/index.ts"],
+      "@zuks/core/*": ["packages/core/*"]
+    }
   },
   "include": [
     "packages",
+    "scripts",
     "packages/.vitepress/**/*.vue",
     "packages/.vitepress/**/*.ts"
   ],
   "exclude": [
     "node_modules",
     "**/*.md",
-    "**/dist"
+    "**/dist",
+    "packages/.test"
   ]
 }

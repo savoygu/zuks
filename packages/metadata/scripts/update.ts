@@ -7,10 +7,11 @@ import fs from 'fs-extra'
 import { simpleGit } from 'simple-git'
 import matter from 'gray-matter'
 import { packages } from '../packages'
+import { getCategories } from '../metadata'
 
 const resolve = (...paths: string[]) => _resolve(__dirname, ...paths)
 
-export const DOCS_URL = 'https://savoygu.github.io/zuks'
+export const DOCS_URL = 'https://zuks.netlify.app'
 export const DIR_PACKAGE = resolve('..') // zuks/packages/metadata
 export const DIR_ROOT = resolve('../../..') // zuks
 export const DIR_SRC = resolve(DIR_ROOT, 'packages') // zuks/packages
@@ -31,18 +32,6 @@ export async function listFunctions(dir: string, ignore: string[] = []) {
   })
   files.sort()
   return files
-}
-
-function getCategories(functions: VueUseFunction[]): string[] {
-  return Array.from(new Set(functions.reduce<string[]>((acc, cur) => {
-    return (!cur.internal && cur.category) ? acc.concat(cur.category) : []
-  }, []))).sort((a, b) => {
-    return (a.startsWith('@') && !b.startsWith('@'))
-      ? 1
-      : (b.startsWith('@') && !a.startsWith('@'))
-          ? -1
-          : a.localeCompare(b)
-  })
 }
 
 export async function readMetadata() {
