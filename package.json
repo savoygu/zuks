@@ -10,7 +10,7 @@
     "build": "nr update && nr zuks build",
     "build:rollup": "rollup -c",
     "build:types": "tsc  --emitDeclarationOnly",
-    "clean": "rimraf dist types packages/*/dist",
+    "clean": "rimraf dist types \"packages/*/dist\"",
     "dev": "nr update && nr docs:dev",
     "docs:dev": "vitepress dev packages --open",
     "docs:build": "nr update && vitepress build packages",
