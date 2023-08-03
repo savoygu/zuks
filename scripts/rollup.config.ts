@@ -16,6 +16,8 @@ const externals = [
   'vue',
   '@zuks/core',
   '@zuks/metadata',
+  '@vueuse/core',
+  'lodash-es',
 ]
 
 function esbuildMinifer(options: ESBuildOptions) {
@@ -34,6 +36,8 @@ for (const { name, globals, submodules, iife, build, cjs, mjs, dts, target, exte
   const iifeGlobals = {
     'vue': 'Vue',
     '@zuks/core': 'Zuks',
+    '@vueuse/core': 'VueUse',
+    'lodash-es': '_',
     ...globals,
   }
 
