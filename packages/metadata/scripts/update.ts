@@ -7,7 +7,7 @@ import fs from 'fs-extra'
 import { simpleGit } from 'simple-git'
 import matter from 'gray-matter'
 import { packages } from '../packages'
-import { getCategories } from '../metadata'
+import { getCategories } from '../categories'
 
 const resolve = (...paths: string[]) => _resolve(__dirname, ...paths)
 

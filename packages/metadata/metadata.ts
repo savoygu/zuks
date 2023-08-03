@@ -1,4 +1,4 @@
-import type { PackageIndexes, VueUseFunction } from '@vueuse/metadata'
+import type { PackageIndexes } from '@vueuse/metadata'
 
 import _metadata, { categories as _categories, functions as _functions, packages as _packages } from './index.json'
 
@@ -26,16 +26,4 @@ export const addonCategoryNames = categoryNames
 
 export function getFunction(name: string) {
   return metadata.functions.find(f => f.name === name)
-}
-
-export function getCategories(functions: VueUseFunction[]): string[] {
-  return Array.from(new Set(functions.reduce<string[]>((acc, cur) => {
-    return (!cur.internal && cur.category) ? acc.concat(cur.category) : []
-  }, []))).sort((a, b) => {
-    return (a.startsWith('@') && !b.startsWith('@'))
-      ? 1
-      : (b.startsWith('@') && !a.startsWith('@'))
-          ? -1
-          : a.localeCompare(b)
-  })
 }
