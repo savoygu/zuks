@@ -17,7 +17,7 @@
     "docs:preview": "vitepress preview packages",
     "lint": "eslint --cache .",
     "publish:ci": "nr zuks publish",
-    "release": "bumpp --execute=npm run release:prepare --all",
+    "release": "bumpp --execute=\"nr release:prepare\" --all",
     "release:prepare": "nr update:full",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
