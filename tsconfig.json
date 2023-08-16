@@ -17,7 +17,9 @@
       "@zuks/metadata": ["packages/metadata/index.ts"],
       "@zuks/metadata/*": ["packages/metadata/*"],
       "@zuks/core": ["packages/core/index.ts"],
-      "@zuks/core/*": ["packages/core/*"]
+      "@zuks/core/*": ["packages/core/*"],
+      "@zuks/shared": ["packages/shared/index.ts"],
+      "@zuks/shared/*": ["packages/shared/*"]
     }
   },
   "include": [

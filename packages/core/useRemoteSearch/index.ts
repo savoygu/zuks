@@ -2,12 +2,7 @@ import { ref, shallowRef } from 'vue'
 import type { MaybeRefOrGetter, UseFetchOptions, UseFetchReturn } from '@vueuse/core'
 import { toValue, useFetch } from '@vueuse/core'
 import { isPlainObject } from 'lodash-es'
-
-export type KvOrCb<T, U> = [string, string] | ((data: T | null) => U[])
-export interface LabelValue {
-  label: keyof any
-  value: keyof any
-}
+import type { KvOrCb, LabelValue } from '@zuks/shared'
 
 export interface UseRemoteSearchOptions<T, U> {
   /**

@@ -10,6 +10,10 @@ export const packages: PackageManifest[] = [
     target: 'node14',
   },
   {
+    name: 'shared',
+    display: 'Shared utilities',
+  },
+  {
     name: 'core',
     display: 'Zuks',
     description: 'Collection of essential Vue Component Library Composition Utilities',

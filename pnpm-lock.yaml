@@ -158,8 +158,13 @@ importers:
       '@zuks/metadata':
         specifier: workspace:*
         version: link:../metadata
+      '@zuks/shared':
+        specifier: workspace:*
+        version: link:../shared
 
   packages/metadata: {}
+
+  packages/shared: {}
 
 packages:
 
