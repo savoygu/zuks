@@ -1,5 +1,4 @@
 import { ref, shallowRef } from 'vue'
-import type { JsonObject } from 'type-fest'
 import type { MaybeRefOrGetter, UseFetchOptions, UseFetchReturn } from '@vueuse/core'
 import { toValue, useFetch } from '@vueuse/core'
 import { isPlainObject } from 'lodash-es'
@@ -30,7 +29,7 @@ export interface UseRemoteSearchOptions<T, U> {
   /**
    * 额外的请求数据
    */
-  extraData?: MaybeRefOrGetter<JsonObject>
+  extraData?: MaybeRefOrGetter<Record<string, any>>
   /**
    * 响应格式处理
    */
@@ -93,7 +92,7 @@ export function useRemoteSearch<T extends Record<string, any>, U = LabelValue>(o
 
     const body = {
       [requestKey]: query,
-      ...extraData,
+      ...toValue(extraData),
     }
 
     if (_fetchOptions?.method && ['GET', 'HEAD'].includes(_fetchOptions.method.toUpperCase())) {
