@@ -5,9 +5,12 @@ import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import UnoCSS from 'unocss/vite'
 import Inspect from 'vite-plugin-inspect'
+import { MarkdownTransform } from './.vitepress/plugins/markdownTransform'
 
 export default defineConfig({
   plugins: [
+    MarkdownTransform(),
+
     Components({
       dirs: resolve(__dirname, '.vitepress/theme/components'),
       include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
@@ -26,4 +29,11 @@ export default defineConfig({
     UnoCSS(),
     Inspect(),
   ],
+  resolve: {
+    alias: {
+      '@zuks/core': resolve(__dirname, 'core/index.ts'),
+      '@zuks/metadata': resolve(__dirname, 'metadata/index.ts'),
+      '@zuks/shared': resolve(__dirname, 'shared/index.ts'),
+    },
+  },
 })

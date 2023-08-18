@@ -1,12 +1,13 @@
 import { join, resolve } from 'node:path'
 import { defineCommand } from 'citty'
-import { getCategories, metadata } from '@zuks/metadata'
+import { metadata } from '@zuks/metadata'
 import { packages } from '@zuks/metadata/packages'
-import type { PackageIndexes, VueUseFunction } from '@vueuse/metadata'
+import type { PackageIndexes } from '@vueuse/metadata'
 import { existsSync, readFile, readJSON, writeFile, writeJSON } from 'fs-extra'
 import { $fetch } from 'ohmyfetch'
 import matter from 'gray-matter'
 import YAML from 'js-yaml'
+import { replacer, stringifyFunctions } from '../utils'
 
 const DIR_ROOT = resolve(__dirname, '../..')
 const REPO = 'https://github.com/savoygu/zuks'
@@ -66,44 +67,6 @@ async function updatePackageREADME({ packages, functions }: PackageIndexes) {
 
     await writeFile(readmePath, `${readme.trim()}\n`, 'utf-8')
   }
-}
-
-function replacer(code: string, value: string, key: string, insert: 'head' | 'tail' | 'none' = 'none'): string {
-  const START = `<!--${key}_STARTS-->`
-  const END = `<!--${key}_ENDS-->`
-  const regex = new RegExp(`${START}[\\s\\S]*?${END}`, 'im')
-
-  const target = value ? `${START}\n${value}\n${END}` : `${START}${END}`
-
-  if (!regex.test(code)) {
-    if (insert === 'none')
-      return code
-    if (insert === 'head')
-      return `${target}\n\n${code}`
-    return `${code}\n\n${target}`
-  }
-
-  return code.replace(regex, target)
-}
-
-function stringifyFunctions(functions: VueUseFunction[], title = true) {
-  const list = getCategories(functions)
-    .filter(category => !category.startsWith('_'))
-    .flatMap((category) => {
-      const categoryFunctions = functions
-        .filter(i => i.category === category && !i.deprecated)
-        .sort((a, b) => a.name.localeCompare(b.name))
-      return [
-        ...(title ? [`### ${category}`] : []),
-        ...categoryFunctions.map(({ name, docs, description }) =>
-          `  - [\`${name}\`](${docs})${description ? ` — ${description}` : ''}`,
-        ),
-        '\n',
-      ]
-    })
-    .join('\n')
-
-  return list
 }
 
 async function updateFunctionsREADME({ functions }: PackageIndexes) {

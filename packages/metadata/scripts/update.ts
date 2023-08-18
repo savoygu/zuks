@@ -1,4 +1,4 @@
-import { resolve as _resolve, join, relative } from 'node:path'
+import { join, relative } from 'node:path'
 import { existsSync } from 'node:fs'
 import { readFile } from 'node:fs/promises'
 import type { PackageIndexes, VueUseFunction, VueUsePackage } from '@vueuse/metadata'
@@ -8,14 +8,7 @@ import { simpleGit } from 'simple-git'
 import matter from 'gray-matter'
 import { packages } from '../packages'
 import { getCategories } from '../categories'
-
-const resolve = (...paths: string[]) => _resolve(__dirname, ...paths)
-
-export const DOCS_URL = 'https://zuks.netlify.app'
-export const DIR_PACKAGE = resolve('..') // zuks/packages/metadata
-export const DIR_ROOT = resolve('../../..') // zuks
-export const DIR_SRC = resolve(DIR_ROOT, 'packages') // zuks/packages
-export const DIR_TYPES = resolve(DIR_ROOT, 'types/packages') // zuks/types/packages
+import { DIR_METADATA, DIR_PACKAGES, DIR_ROOT, DOCS_URL } from '../constants'
 
 export const git = simpleGit(DIR_ROOT)
 
@@ -45,7 +38,7 @@ export async function readMetadata() {
     if (_package.utils)
       continue
 
-    const dir = join(DIR_SRC, _package.name)
+    const dir = join(DIR_PACKAGES, _package.name)
     const functions = await listFunctions(dir)
 
     const pkg: VueUsePackage = {
@@ -103,7 +96,7 @@ export async function readMetadata() {
 
 async function run() {
   const indexes = await readMetadata()
-  await fs.writeJSON(join(DIR_PACKAGE, 'index.json'), indexes, { spaces: 2 })
+  await fs.writeJSON(join(DIR_METADATA, 'index.json'), indexes, { spaces: 2 })
 }
 
 run()
