@@ -13,7 +13,7 @@
     "clean": "rimraf dist types \"packages/*/dist\"",
     "dev": "nr update && nr docs:dev",
     "docs:dev": "vitepress dev packages --open",
-    "docs:build": "nr update && vitepress build packages",
+    "docs:build": "nr update:full && vitepress build packages",
     "docs:preview": "vitepress preview packages",
     "lint": "eslint --cache .",
     "publish:ci": "nr zuks publish",
