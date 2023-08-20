@@ -23,6 +23,7 @@ const FunctionsSidebar = getFunctionsSidebar()
 export default defineConfig({
   title: 'Zuks',
   description: 'Vue 组件库组合工具集',
+  ignoreDeadLinks: true,
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
