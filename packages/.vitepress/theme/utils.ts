@@ -16,5 +16,5 @@ export function renderMarkdown(markdownText = '') {
 
 export function renderCommitMessage(msg: string) {
   return renderMarkdown(msg)
-    .replace(/\#([0-9]+)/g, '<a href=\'https://github.com/vueuse/vueuse/issues/$1\'>#$1</a>')
+    .replace(/\#([0-9]+)/g, '<a href=\'https://github.com/savoygu/zuks/issues/$1\'>#$1</a>')
 }
