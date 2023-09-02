@@ -22,7 +22,7 @@
     "test": "vitest",
     "typecheck": "tsc --noEmit",
     "update": "nr -C packages/metadata update && nr zuks update",
-    "update:full": "nr build:types && nr update",
+    "update:full": " nr update && nr build:types",
     "watch": "nr zuks build --watch",
     "zuks": "esno scripts/main.ts"
   },
