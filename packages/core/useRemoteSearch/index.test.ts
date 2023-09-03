@@ -1,42 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import type { MaybeRefOrGetter, UseFetchOptions } from '@vueuse/core'
-import { createFetch } from '@vueuse/core'
-import { isBelowNode18, retry } from '../../.test'
+import type { Comment, IdNamePost, LabelValuePost, useFetcher } from '../../.test'
+import { baseUrl, isBelowNode18, retry, useRequest } from '../../.test'
 import { useRemoteSearch } from '.'
-
-interface Comment {
-  id: number
-  name: string
-  email: string
-  body: string
-  postId: number
-}
-
-interface LabelValuePost {
-  label: string
-  value: number
-  postId: number
-}
-
-type LabelValueComment = Pick<Comment, 'id' | 'name' | 'postId'>
-
-const baseUrl = 'https://jsonplaceholder.typicode.com'
-
-const useFetcher = createFetch({
-  baseUrl,
-})
-
-function useRequest<T>(url: MaybeRefOrGetter<string>, options: RequestInit, useFetchOptions?: UseFetchOptions) {
-  return useFetcher(url, options, useFetchOptions).json<T>()
-}
-
-// function usePost(...args: Parameters<typeof useRequest>) {
-//   return useRequest(args[0], { method: 'POST', ...args[1] }, args[2])
-// }
 
 describe.skipIf(isBelowNode18)('useRemoteSearch', () => {
   it('should support get request', async () => {
-    const { data, loading, onRemoteSearch } = useRemoteSearch<Comment[], LabelValueComment>({
+    const { data, loading, onRemoteSearch } = useRemoteSearch<Comment[], IdNamePost>({
       url: `${baseUrl}/comments`,
       requestKey: 'postId',
       fetchOptions: { method: 'GET' },
@@ -52,7 +21,7 @@ describe.skipIf(isBelowNode18)('useRemoteSearch', () => {
   })
 
   it('should use the custom fetcher', async () => {
-    const { data, loading, onRemoteSearch } = useRemoteSearch<Comment[], LabelValueComment>({
+    const { data, loading, onRemoteSearch } = useRemoteSearch<Comment[], IdNamePost>({
       url: '/comments',
       requestKey: 'postId',
       fetchOptions: { method: 'GET' },
@@ -69,7 +38,7 @@ describe.skipIf(isBelowNode18)('useRemoteSearch', () => {
   })
 
   it('should automatically execute onRemoteSearch', async () => {
-    const { data, loading } = useRemoteSearch<Comment[], LabelValueComment>({
+    const { data, loading } = useRemoteSearch<Comment[], IdNamePost>({
       url: `${baseUrl}/posts/1/comments`,
       requestKey: 'postId',
       fetchOptions: { method: 'GET' },
