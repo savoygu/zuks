@@ -15,7 +15,7 @@ category: Data 数据展示
 ```ts
 import { useActionList } from '@zuks/core'
 
-const { actionVisible, operating, currentRow, toggleAction, onActionRow, makeActionMap } = useRemoteSearch()
+const { actionVisible, operating, currentRow, toggleAction, onActionRow, makeActionMap } = useActionList()
 ```
 
 - `actionVisible` 可以控制弹窗显示/隐藏。
