@@ -117,9 +117,9 @@ export async function updatePackageJSON({ functions }: PackageIndexes) {
         : {}),
       exports: {
         '.': {
+          types: './index.d.ts',
           import: './index.mjs',
           require: './index.cjs',
-          types: './index.d.ts',
         },
         './*': './*',
         ...packageJSON.exports,
