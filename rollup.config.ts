@@ -4,8 +4,8 @@ import type { Options as ESBuildOptions } from 'rollup-plugin-esbuild'
 import esbuild from 'rollup-plugin-esbuild'
 import json from '@rollup/plugin-json'
 import dts from 'rollup-plugin-dts'
-import { globSync } from 'fast-glob'
-import { packages } from '../packages/metadata/packages'
+import fg from 'fast-glob'
+import { packages } from './packages/metadata/packages'
 
 const configs: RollupOptions[] = []
 
@@ -45,7 +45,7 @@ for (const { name, globals, submodules, iife, build, cjs, mjs, dts, target, exte
   const functionNames = ['index']
 
   if (submodules)
-    functionNames.push(...globSync('*/index.ts', { cwd: resolve(`packages/${name}`) }).map(i => i.split('/')[0]))
+    functionNames.push(...fg.globSync('*/index.ts', { cwd: resolve(`packages/${name}`) }).map(i => i.split('/')[0]))
 
   for (const fn of functionNames) {
     const input = fn === 'index'

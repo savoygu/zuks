@@ -26,7 +26,8 @@
     "packages",
     "scripts",
     "packages/.vitepress/**/*.vue",
-    "packages/.vitepress/**/*.ts"
+    "packages/.vitepress/**/*.ts",
+    "rollup.config.ts"
   ],
   "exclude": [
     "node_modules",

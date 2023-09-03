@@ -1,4 +1,5 @@
 import { join, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { consola } from 'consola'
 import { defineCommand } from 'citty'
 import fs from 'fs-extra'
@@ -6,6 +7,8 @@ import fg from 'fast-glob'
 import { $ } from 'execa'
 import { packages } from '../../packages/metadata/packages'
 import { version } from '../../package.json'
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
 export default defineCommand({
   meta: {

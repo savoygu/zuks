@@ -9,7 +9,7 @@
   "license": "MIT",
   "scripts": {
     "build": "nr update && nr zuks build",
-    "build:rollup": "rollup -c",
+    "build:rollup": "rollup --config=rollup.config.ts --configPlugin=rollup-plugin-esbuild",
     "build:types": "tsc  --emitDeclarationOnly",
     "clean": "rimraf dist types \"packages/*/dist\"",
     "dev": "nr update && nr docs:dev",
