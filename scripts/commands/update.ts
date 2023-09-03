@@ -1,14 +1,17 @@
 import { join, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import process from 'node:process'
 import { defineCommand } from 'citty'
-import { metadata } from '@zuks/metadata'
-import { packages } from '@zuks/metadata/packages'
 import type { PackageIndexes } from '@vueuse/metadata'
-import { existsSync, readFile, readJSON, writeFile, writeJSON } from 'fs-extra'
+import fs from 'fs-extra'
 import { $fetch } from 'ohmyfetch'
 import matter from 'gray-matter'
 import YAML from 'js-yaml'
+import { metadata } from '../../packages/metadata/metadata'
+import { packages } from '../../packages/metadata/packages'
 import { replacer, stringifyFunctions } from '../utils'
 
+const __dirname = fileURLToPath(new URL('.', import.meta.url))
 const DIR_ROOT = resolve(__dirname, '../..')
 const REPO = 'https://github.com/savoygu/zuks'
 
@@ -51,43 +54,43 @@ async function updatePackageEntryImport({ packages, functions }: PackageIndexes)
       // TODO export types
     }
 
-    await writeFile(join(dir, 'index.ts'), `${imports.join('\n')}\n`)
+    await fs.writeFile(join(dir, 'index.ts'), `${imports.join('\n')}\n`)
   }
 }
 
 async function updatePackageREADME({ packages, functions }: PackageIndexes) {
   for (const { name, dir } of Object.values(packages)) {
     const readmePath = join(DIR_ROOT, dir, 'README.md')
-    if (!existsSync(readmePath))
+    if (!fs.pathExistsSync(readmePath))
       continue
 
     const functionMd = stringifyFunctions(functions.filter(f => f.package === name), false)
-    let readme = await readFile(readmePath, 'utf-8')
+    let readme = await fs.readFile(readmePath, 'utf-8')
     readme = replacer(readme, functionMd, 'FUNCTIONS_LIST')
 
-    await writeFile(readmePath, `${readme.trim()}\n`, 'utf-8')
+    await fs.writeFile(readmePath, `${readme.trim()}\n`, 'utf-8')
   }
 }
 
 async function updateFunctionsREADME({ functions }: PackageIndexes) {
   for (const f of functions) {
     const mdPath = join(DIR_ROOT, `packages/${f.package}/${f.name}/index.md`)
-    if (!existsSync(mdPath))
+    if (!fs.pathExistsSync(mdPath))
       continue
 
-    let readme = await readFile(mdPath, 'utf-8')
+    let readme = await fs.readFile(mdPath, 'utf-8')
     const { content, data = {} } = matter(readme)
     data.category = f.category || 'Unknown'
     readme = `---\n${YAML.dump(data)}---\n\n${content.trim()}`
-    await writeFile(mdPath, `${readme.trim()}\n`, 'utf-8')
+    await fs.writeFile(mdPath, `${readme.trim()}\n`, 'utf-8')
   }
 }
 
 export async function updatePackageJSON({ functions }: PackageIndexes) {
-  const { version } = await readJSON(join(DIR_ROOT, 'package.json'))
+  const { version } = await fs.readJSON(join(DIR_ROOT, 'package.json'))
   for (const { name, description, author, iife, submodules } of packages) {
     const packageJSONPath = join(DIR_ROOT, `packages/${name}/package.json`)
-    const packageJSON = await readJSON(packageJSONPath)
+    const packageJSON = await fs.readJSON(packageJSONPath)
     Object.assign(packageJSON, {
       version,
       description: description || packageJSON.description,
@@ -142,7 +145,7 @@ export async function updatePackageJSON({ functions }: PackageIndexes) {
         })
     }
 
-    await writeJSON(packageJSONPath, packageJSON, { spaces: 2 })
+    await fs.writeJSON(packageJSONPath, packageJSON, { spaces: 2 })
   }
 }
 
@@ -155,5 +158,5 @@ async function updateFunctionCountBadge({ functions }: PackageIndexes) {
   const url = `https://img.shields.io/badge/-${functionsCount}%20functions-13708a`
   const response = await $fetch(url)
   const data = await response.text()
-  await writeFile(join(DIR_ROOT, 'packages/public/badge-function-count.svg'), data, 'utf-8')
+  await fs.writeFile(join(DIR_ROOT, 'packages/public/badge-function-count.svg'), data, 'utf-8')
 }

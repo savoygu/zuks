@@ -1,5 +1,6 @@
 {
   "name": "@zuks/metadata",
+  "type": "module",
   "version": "0.0.0",
   "description": "Metadata for Zuks functions",
   "author": "savoygu <https://github.com/savoygu>",
@@ -22,8 +23,8 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "require": "./index.cjs",
-      "import": "./index.mjs"
+      "import": "./index.mjs",
+      "require": "./index.cjs"
     },
     "./*": "./*"
   },

@@ -1,5 +1,5 @@
 import { join } from 'node:path'
-import { existsSync, readFile } from 'fs-extra'
+import fs from 'fs-extra'
 import type { VueUseFunction } from '@vueuse/metadata'
 import { DIR_TYPES } from '../packages/metadata/constants'
 import { getCategories } from '../packages/metadata'
@@ -44,10 +44,10 @@ export function stringifyFunctions(functions: VueUseFunction[], title = true) {
 
 export async function getTypeDefinition(pkg: string, name: string): Promise<string | undefined> {
   const typingFilepath = join(DIR_TYPES, `${pkg}/${name}/index.d.ts`)
-  if (!existsSync(typingFilepath))
+  if (!fs.pathExistsSync(typingFilepath))
     return
 
-  let types = await readFile(typingFilepath, 'utf-8')
+  let types = await fs.readFile(typingFilepath, 'utf-8')
   if (!types)
     return
 

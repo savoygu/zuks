@@ -1,8 +1,8 @@
 import { join } from 'node:path'
 import { defineCommand } from 'citty'
 import { $ } from 'execa'
-import { packages } from '@zuks/metadata/packages'
 import { consola } from 'consola'
+import { packages } from '../../packages/metadata/packages'
 import { version } from '../../package.json'
 
 export default defineCommand({

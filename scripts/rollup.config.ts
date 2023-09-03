@@ -5,7 +5,7 @@ import esbuild from 'rollup-plugin-esbuild'
 import json from '@rollup/plugin-json'
 import dts from 'rollup-plugin-dts'
 import { globSync } from 'fast-glob'
-import { packages } from '@zuks/metadata/packages'
+import { packages } from '../packages/metadata/packages'
 
 const configs: RollupOptions[] = []
 

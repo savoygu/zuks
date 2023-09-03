@@ -1,4 +1,7 @@
 import { resolve as _resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
 const resolve = (...paths: string[]) => _resolve(__dirname, ...paths)
 
