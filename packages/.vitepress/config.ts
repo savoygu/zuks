@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import { applyPlugins } from '@ruabick/md-demo-plugins'
 import { categoryNames, coreCategoryNames, metadata } from '../metadata/metadata'
 
 const Guide = [
@@ -59,6 +60,11 @@ export default defineConfig({
     docFooter: {
       prev: '上一页',
       next: '下一页',
+    },
+  },
+  markdown: {
+    config: (md) => {
+      applyPlugins(md)
     },
   },
 })

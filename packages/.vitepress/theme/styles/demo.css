@@ -1,0 +1,8 @@
+body {
+  background-color: var(--vp-c-bg);
+  color: var(--vp-c-text-1);
+}
+
+.vp-doc .vitepress-demo p {
+  margin: 0;
+}

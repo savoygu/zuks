@@ -67,38 +67,10 @@ async function getFunctionMarkdown(pkg: string, name: string) {
 
 function getDemoSection(demoPath: string | undefined, githubBlobUrl: string) {
   return demoPath
-    ? demoPath.endsWith('.client.vue')
-      ? `
-<script setup>
-import { defineAsyncComponent } from 'vue'
-const Demo = defineAsyncComponent(() => import('./${demoPath}'))
-</script>
+    ? `
+## 演示
 
-## Demo
-
-<DemoContainer>
-<p class="demo-source-link"><a href="${githubBlobUrl}/${demoPath}" target="_blank">source</a></p>
-<ClientOnly>
-  <Suspense>
-    <Demo/>
-    <template #fallback>
-      Loading demo...
-    </template>
-  </Suspense>
-</ClientOnly>
-</DemoContainer>
-`
-      : `
-<script setup>
-import Demo from \'./${demoPath}\'
-</script>
-
-## Demo
-
-<DemoContainer>
-<p class="demo-source-link"><a href="${githubBlobUrl}/${demoPath}" target="_blank">source</a></p>
-<Demo/>
-</DemoContainer>
+<demo src="./${demoPath}"></demo>
 `
     : ''
 }
@@ -120,7 +92,7 @@ async function getTypingSection(pkg: string, name: string) {
   let typingSection = ''
   if (types) {
     const code = `\`\`\`typescript\n${types.trim()}\n\`\`\``
-    typingSection = types.length > 100
+    typingSection = types.length > 1000
       ? `
 ## 类型声明
 

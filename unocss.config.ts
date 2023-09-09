@@ -6,6 +6,8 @@ import {
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
+import { presetAnu, presetIconExtraProperties } from 'anu-vue'
+import { presetThemeDefault } from '@anu-vue/preset-theme-default'
 
 export default defineConfig({
   shortcuts: {
@@ -19,8 +21,17 @@ export default defineConfig({
     presetIcons({
       scale: 1.2,
       warn: true,
+      extraProperties: presetIconExtraProperties,
     }),
+
+    presetAnu(),
+    presetThemeDefault(),
   ],
+  content: {
+    pipeline: {
+      include: [/.*\/anu-vue\.js(.*)?$/, './**/*.vue', './**/*.md'],
+    },
+  },
   theme: {
     colors: {
       primary: '#646cff',
