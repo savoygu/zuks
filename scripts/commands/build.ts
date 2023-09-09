@@ -1,10 +1,10 @@
 import { join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { execSync } from 'node:child_process'
 import { consola } from 'consola'
 import { defineCommand } from 'citty'
 import fs from 'fs-extra'
 import fg from 'fast-glob'
-import { $ } from 'execa'
 import { packages } from '../../packages/metadata/packages'
 import { version } from '../../package.json'
 
@@ -23,15 +23,13 @@ export default defineCommand({
     },
   },
   run: async ({ args }) => {
-    const $$ = $({ stdio: 'inherit' })
-
     const rootDir = resolve(__dirname, '../..')
 
     consola.info('Clean up')
-    await $$`nr clean`
+    execSync('nr clean', { stdio: 'inherit' })
 
     consola.info('Rollup build')
-    await $$`nr build:rollup${args.watch ? ' --watch' : ''}`
+    execSync(`nr build:rollup${args.watch ? ' --watch' : ''}`, { stdio: 'inherit' })
 
     // build meta
     for (const { name } of packages) {
