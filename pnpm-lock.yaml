@@ -56,9 +56,15 @@ importers:
       '@vueuse/shared':
         specifier: ^10.4.1
         version: 10.4.1(vue@3.3.4)
+      '@zuks/core':
+        specifier: workspace:*
+        version: link:packages/core
       '@zuks/metadata':
         specifier: workspace:*
         version: link:packages/metadata
+      '@zuks/shared':
+        specifier: workspace:*
+        version: link:packages/shared
       anu-vue:
         specifier: ^0.15.2
         version: 0.15.2(@unocss/reset@0.41.2)(@vueuse/core@10.4.1)(vue-router@4.2.4)
